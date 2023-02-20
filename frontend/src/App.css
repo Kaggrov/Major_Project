@@ -1,0 +1,9 @@
+.App {
+  background-color: rgb(255, 245, 233);
+}
+.App__body {
+  display: flex;
+  margin-top: 20px;
+  flex:auto
+}
+
