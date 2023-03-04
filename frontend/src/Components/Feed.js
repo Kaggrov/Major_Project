@@ -1,47 +1,68 @@
 import React, { useEffect, useState } from 'react'
-import Question from './Question'
-// import Post from './Post'
+import TrendingStory from './TrendingStory'
+ import Question from './Question'
+import Post from './Post'
 import './Feed.css'
-// import axios from '../axios'
-// import Pusher from 'pusher-js';
+//import axios from '../axios'
+//import Pusher from 'pusher-js';
 
-// const pusher = new Pusher('c000c5011ca90b2ccc1c', {
+// const pusher = new Pusher('........', {
 //   cluster: 'ap2'
 // });
 
 
 const Feed = () => {
 
+  const dummyData = [
+    {
+        "avatar" : "",
+        "text" : "Dummy Data 1",
+        "timestamp":"03 04 2023",
+        "imgName":"Dummy",
+        "username":"User 1"
+    },
+    {
+      "avatar" : "",
+      "text" : "Dummy Data 2",
+      "timestamp":"03 04 2023",
+      "imgName":"Dummy",
+      "username":"User 2"
+    },
+  ]
+
   const [profilePic,setProfilePic] = useState('');
-  const [postsData,setPostsData] = useState([]);
+  const [postsData,setPostsData] = useState(dummyData);
 
-//   const syncData = () =>{
-//     axios.get('/retrieve/posts')
-//           .then((res)=> {
-//             console.log(res.data);
-//             setPostsData(res.data);
-//           })
-//   }
+  // const syncData = () =>{
+  //   axios.get('/retrieve/posts')
+  //         .then((res)=> {
+  //           console.log(res.data);
+  //           setPostsData(res.data);
+  //         })
+  // }
 
-//   useEffect(()=>{
+  // useEffect(()=>{
 
-//     var channel = pusher.subscribe('posts');
-//     channel.bind('inserted', function(data) {
-//         syncData();
-//     });
+  //   var channel = pusher.subscribe('posts');
+  //   channel.bind('inserted', function(data) {
+  //       syncData();
+  //   });
 
-//   },[])
+  // },[])
 
-//   useEffect(() =>{
-//     syncData()
-//   },[])
+  // useEffect(() =>{
+  //   syncData()
+  // },[])
 
 
   return (
     <div className='feed'>
-
+        <TrendingStory/>
         <Question/>
-        {/* {
+
+
+
+        {
             postsData.map (entry => (
                 <Post
 
@@ -54,7 +75,7 @@ const Feed = () => {
                 />
 
             ))
-        } */}
+        }
         
     </div>
   )

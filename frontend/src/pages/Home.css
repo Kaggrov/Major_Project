@@ -1,0 +1,11 @@
+.Home {
+    background-color: rgb(255, 245, 233);
+
+  }
+  .Home__body {
+    display: flex;
+    margin-top: 20px;
+    flex:auto
+  }
+  
+  

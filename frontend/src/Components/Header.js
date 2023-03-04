@@ -1,15 +1,21 @@
-import { Avatar, IconButton } from '@material-ui/core'
-import { AddCircle, ExpandMoreRounded, FlagRounded, Forum, Home, NotificationsActive, Search, StorefrontOutlined, SubscriptionsRounded, SupervisedUserCircleRounded } from '@material-ui/icons'
+import { Avatar, Button, IconButton } from '@mui/material'
+import { AddCircle, ExpandMoreRounded, FlagRounded, Forum, Home, NotificationsActive, Search, StorefrontOutlined, SubscriptionsRounded, SupervisedUserCircleRounded } from '@mui/icons-material'
 import React from 'react'
+//import img from '../assets/logo.jpg'
 import './Header.css'
+//import {useStateValue} from '../StateProvider'
+import {useNavigate} from "react-router-dom"
+
 
 const Header = () => {
 
+    //const [{user},dispatch] = useStateValue();
+    const navigate = useNavigate();
 
   return (
     <div className='header'>
         <div className='header__left'>
-            {/* <img src={img} alt='Logo'/> */}
+            <img src={"img"} alt='Logo'/>
 
 
         </div>
@@ -31,8 +37,13 @@ const Header = () => {
             <div className='header__option'>
                 <SubscriptionsRounded fontSize='large'/>
             </div>
-            <div className='header__option'>
+            <div className='header__option' onClick={()=>{
+                console.log("MarketPlace")
+                navigate('/marketplace')
+            }}>
+
                 <StorefrontOutlined fontSize='large'/>
+
             </div>
             <div className='header__option'>
                 <SupervisedUserCircleRounded fontSize='large'/>
@@ -42,8 +53,8 @@ const Header = () => {
 
         <div className='header__right'>
             <div className='header__info'>
-                {/* <Avatar src={user.photoURL}/>
-                <h4>{user.displayName}</h4> */}
+                <Avatar src={"user.photoURL"}/>
+                <h4>{"user.displayName"}</h4>
             </div>
 
             <IconButton>

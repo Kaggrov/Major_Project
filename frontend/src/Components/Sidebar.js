@@ -1,16 +1,18 @@
-import { Chat, EmojiFlags, ExpandMore, LocalHospital, People, Storefront, VideoLibrary } from "@material-ui/icons";
+import { Chat, EmojiFlags, ExpandMore, LocalHospital, People, Storefront, VideoLibrary } from '@mui/icons-material';
 import React from "react";
 import SidebarRow from './SidebarRow'
 import './Sidebar.css'
+//import {useStateValue} from '../StateProvider'
 
 const Sidebar = () => {
 
   //const [{user},dispatch] = useStateValue();
 
   return (
+    
     <div className="sidebar">
         
-        {/* <SidebarRow src={user.photoURL} title={user.displayName}/> */}
+        <SidebarRow src={"user.photoURL"} title={"user.displayName"}/>
 
         <SidebarRow Icon = {LocalHospital } title='Crop Information Center' />
 

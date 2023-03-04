@@ -1,0 +1,15 @@
+.market {
+    background: rgb(165, 173, 118);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    margin: 40px;
+    justify-content: center;
+}
