@@ -14,15 +14,15 @@ const Sidebar = () => {
         
         <SidebarRow src={"user.photoURL"} title={"user.displayName"}/>
 
-        <SidebarRow Icon = {LocalHospital } title='Crop Information Center' />
+        <SidebarRow Icon = {LocalHospital } title='Crop Disease Detection' />
 
-        <SidebarRow Icon={EmojiFlags} title='Pages'/>
-
-        <SidebarRow Icon={People} title='Crop Experts'/>
+        <SidebarRow Icon={People} title='Crop Recommendation'/>
 
         <SidebarRow Icon={Chat} title='Expert Chat'/>
 
         <SidebarRow Icon={Storefront} title='MarketPlace'/>
+
+        <SidebarRow Icon={EmojiFlags} title='Pages'/>
 
         <SidebarRow Icon={VideoLibrary} title='Reference Videos'/>
 

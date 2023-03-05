@@ -11,6 +11,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Market from "./pages/Market";
 import Explore from './pages/Explore';
+import Product from "./pages/Product";
+import Admin from "./pages/Admin"
+import ExploreSale from "./pages/ExploreSale";
+import ProductSale from "./pages/ProductSale"
 
 function App() {
   // const [{ user }, dispatch] = useStateValue()
@@ -42,6 +46,10 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/marketplace" element={<Market/>}/>
         <Route path="/rent" element={<Explore/>}/>
+        <Route path="/product" element={<Product/>}/>
+        <Route path="/admin" element={<Admin/>}/>
+        <Route path="/sale" element={<ExploreSale/>}/>
+        <Route path="/productSale" element={<ProductSale/>}/>
       </Routes>
     </BrowserRouter>
   )

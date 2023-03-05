@@ -1,11 +1,11 @@
 import React from 'react'
 import { Col, Row } from 'antd';
-import {ShoppingFilled} from '@ant-design/icons';
+import {ShoppingCartOutlined} from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import {useNavigate} from 'react-router-dom';
 const { Meta } = Card;
 
-const Explore = () => {
+const ExploreSale = () => {
 
     const navigate = useNavigate();
     const Dummy_Details = [
@@ -13,63 +13,63 @@ const Explore = () => {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
         {
             image:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             title:"Card title",
             description:"This is the Description",
-            rent:"1500"
+            price:"2000"
     
         },
     ]
@@ -92,19 +92,20 @@ const Explore = () => {
                             />
                             }
                             actions={[
-                                <ShoppingFilled key="shop" style={{fontSize:"25px"}}/>
+                                <ShoppingCartOutlined key="shop" style={{fontSize:"25px"}}/>
                             ]}
                             hoverable={true}
                             onClick={()=>{
-                                navigate('/product',{state:{Image:`${val.image}`,name:`${val.title}`,rent:`${val.rent}`}});
+                                navigate('/productSale',{state:{Image:`${val.image}`,name:`${val.title}`,price:`${val.price}`}});
 
                             }}
                         >
-                            <h3>Rent Per Month :- {val.rent} Only</h3>
+                            <h3>Price :- {val.price} Only</h3>
                             <Meta
                             avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
                             title={val.title}
                             description={val.description}
+
                             />
                         </Card>
                     </Col>
@@ -118,4 +119,4 @@ const Explore = () => {
   )
 }
 
-export default Explore
+export default ExploreSale

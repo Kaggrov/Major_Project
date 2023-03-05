@@ -1,0 +1,23 @@
+.admin_dashboard {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+}
+
+.button {
+    padding: 5% 5%;
+    border-radius: 15px;
+    background-color: rgb(164, 108, 247);
+    margin: 15px;
+    cursor: pointer;
+}
+
+.button > p{
+
+    font-size: 40px;
+    font-weight: 600;
+    color: azure;
+}

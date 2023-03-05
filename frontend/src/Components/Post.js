@@ -1,10 +1,93 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Avatar } from '@mui/material'
 import { AccountCircle, ChatBubble, ChatBubbleOutline, ChatBubbleTwoTone, ExpandMoreOutlined, NearMe, ThumbUp } from'@mui/icons-material'
-import React from 'react'
+import React,{useState} from 'react'
+import { Button, Modal,Collapse,Popover, Space } from 'antd';
+import {FacebookIcon, FacebookShareButton,TwitterIcon,TwitterShareButton,WhatsappIcon,WhatsappShareButton} from 'react-share'
 import './Post.css'
+import { Input } from 'antd';
+
+const { TextArea } = Input;
+const { Panel } = Collapse;
 
 const Post = ({profilepic,imgName,username,timestamp,message}) => {
+
+    const dummy_solutions = [
+        {
+            key : 1,
+            header : "Expert 1",
+            text :"Solution is present here "
+        },
+        {
+            key : 2,
+            header : "Expert 2",
+            text:"Solution is present here"
+        },
+        {
+            key:3,
+            header :"Expert 3",
+            text :"Solution is present here "
+        }
+    ]
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [input, setInput] = useState();
+    const [solutions,setSolutions] = useState(dummy_solutions);
+
+    const handleOk = () => {
+
+      const new_solution = {
+        key:solutions.length+1,
+        header:"Expert new",
+        text:input,
+      }
+      setSolutions(prevState => [...prevState, new_solution])
+      console.log(solutions)
+      setConfirmLoading(true);
+      setTimeout(() => {
+        setOpen(false);
+        setConfirmLoading(false);
+      }, 2000);
+    };
+
+    const handleCancel = () => {
+      console.log('Clicked cancel button');
+      setOpen(false);
+    };
+
+  const handleSolution = () => {
+        setOpen(true);
+  }
+
+  const onText = (e) => {
+    setInput(e.target.value);
+  }
+  const ShareApps = (
+    <div style={{display:"flex",flexDirection:"column",width:"40px",gap:"2px"}}>
+        <FacebookShareButton
+            url={"https://www.facebook.com/kisanektamorcha/"}
+            quote={"FarmersTribe - World is yours to explore"}
+            hashtag="#Farmer"
+        >
+            <FacebookIcon size={32} round={true} />
+        </FacebookShareButton>
+        <TwitterShareButton
+            url={"https://www.facebook.com/kisanektamorcha/"}
+            quote={"FarmersTribe - World is yours to explore"}
+            hashtag="#Farmer"
+
+        >
+            <TwitterIcon size={32} round={true} />
+        </TwitterShareButton>
+        <WhatsappShareButton
+            url={"https://www.facebook.com/kisanektamorcha/"}
+            quote={"FarmersTribe - World is yours to explore"}
+            hashtag="#Farmer"
+        >
+            <WhatsappIcon size={32} round={true} />
+        </WhatsappShareButton>
+    </div>
+  )
   return (
     <div className='post'>
         <div className='post__top'>
@@ -38,25 +121,55 @@ const Post = ({profilepic,imgName,username,timestamp,message}) => {
                 <p>Support</p>
 
             </div>
-
             <div className='post__option'>
+                <h3 style={{fontSize:"20px"}}>|</h3>
+            </div>
+
+            <div className='post__option'
+                 onClick={handleSolution}
+            >
                 <ChatBubble/>
                 <p>Solution</p>
                 
             </div>
 
             <div className='post__option'>
-                <NearMe/>
-                <p>Share</p>
-                
+                <h3 style={{fontSize:"20px"}}>|</h3>
             </div>
+            <Popover content={ShareApps} trigger="click">
+                <div className='post__option'>
+                    <NearMe />
 
-            <div className='post__option'>
-                <AccountCircle/>
-                <ExpandMoreOutlined/>
-                
-            </div>
+                    
+                    <p>Share</p>
+
+
+                    
+                </div>
+            </Popover>
+
         </div>
+
+        <Modal
+            title="Solutions Generated"
+            open={open}
+            onOk={handleOk}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
+        >
+        <Collapse defaultActiveKey={['1']}>
+            {
+                solutions.map(sol => (
+
+                    <Panel header={sol.header} key={sol.key}>
+                         <p>{sol.text}</p>
+                    </Panel>
+                
+                ))
+            }
+        </Collapse>
+        <TextArea showCount maxLength={100} style={{marginTop:"10px",marginBottom:"25px"}} onChange={onText} />
+        </Modal>
         
     </div>
   )
