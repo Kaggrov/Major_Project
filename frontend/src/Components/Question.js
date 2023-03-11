@@ -3,10 +3,10 @@ import { InsertEmoticon, PhotoLibrary, Videocam } from'@mui/icons-material'
 import React, { useState } from 'react'
 import './Question.css'
 // import {useStateValue} from '../StateProvider'
-// import axios from '../axios';
+import axios from '../axios';
 
 
-const Question = () => {
+const Question = ({postId}) => {
 
   const [input,setInput] = useState('');
   const [image,setImage] = useState(null);
@@ -22,43 +22,47 @@ const Question = () => {
       e.preventDefault();
       console.log("Submitting");
 
-    //   if(image) {
-    //     const imgForm = new FormData();
-    //     imgForm.append('file',image,image.name)
+      if(image) {
+        const imgForm = new FormData();
+        imgForm.append('file',image,image.name)
 
-    //     axios.post('/upload/image',imgForm, {
-    //       headers:{
-    //         'accept': 'application/json',
-    //         'Accept-Language':'en-US,en;q=0.8',
-    //         'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
-    //       }
-    //     }).then((res)=>{
-    //         console.log(res.data)
+        axios.post('/upload/image',imgForm, {
+          headers:{
+            'accept': 'application/json',
+            'Accept-Language':'en-US,en;q=0.8',
+            'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
+          }
+        }).then((res)=>{
+            console.log(res.data)
 
-    //         const postData = {
-    //           text:input,
-    //           imgName:res.data.filename,
-    //           user:user.displayName,
-    //           avatar:user.photoURL,
-    //           timestamp: Date.now()
-    //         }
-    //         console.log(postData);
-    //         savePost(postData)
+            const postData = {
+              postId:postId,
+              text:input,
+              imgName:res.data.filename,
+              user:"user.displayName",
+              avatar:"user.photoURL",
+              timestamp: Date.now(),
+              answers:[]
+            }
+            console.log(postData);
+            savePost(postData)
 
-    //     })
-    //   }
-    //   else
-    //   {
-    //       const postData = {
-    //         text:input,
-    //         user:user.displayName,
-    //         avatar:user.photoURL,
-    //         timestamp: Date.now()
-    //       }
-    //       console.log(postData);
-    //       savePost(postData)
+        })
+      }
+      else
+      {
+          const postData = {
+            postId:postId,
+            text:input,
+            user:"user.displayName",
+            avatar:"user.photoURL",
+            timestamp: Date.now(),
+            answers:[]
+          }
+          console.log(postData);
+          savePost(postData)
 
-    //   }
+      }
 
       setImage('');
       setInput('');
@@ -67,10 +71,10 @@ const Question = () => {
 
   const savePost = async (postData) =>{
     console.log(postData)
-    // await axios.post('/upload/post',postData)
-    //       .then((resp)=>{
-    //         console.log(resp);
-    //       })
+    await axios.post('/upload/post',postData)
+          .then((resp)=>{
+            console.log(resp);
+          })
   }
 
 

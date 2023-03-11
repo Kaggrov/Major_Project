@@ -1,48 +1,66 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Avatar } from '@mui/material'
-import { AccountCircle, ChatBubble, ChatBubbleOutline, ChatBubbleTwoTone, ExpandMoreOutlined, NearMe, ThumbUp } from'@mui/icons-material'
-import React,{useState} from 'react'
-import { Button, Modal,Collapse,Popover, Space } from 'antd';
+import {ChatBubble,NearMe, ThumbUp } from'@mui/icons-material'
+import React,{useEffect, useState} from 'react'
+import {Modal,Collapse,Popover } from 'antd';
 import {FacebookIcon, FacebookShareButton,TwitterIcon,TwitterShareButton,WhatsappIcon,WhatsappShareButton} from 'react-share'
 import './Post.css'
 import { Input } from 'antd';
-
+import axios from '../axios';
 const { TextArea } = Input;
 const { Panel } = Collapse;
 
-const Post = ({profilepic,imgName,username,timestamp,message}) => {
+const Post = ({postId,profilepic,imgName,username,timestamp,message,answers}) => {
 
-    const dummy_solutions = [
-        {
-            key : 1,
-            header : "Expert 1",
-            text :"Solution is present here "
-        },
-        {
-            key : 2,
-            header : "Expert 2",
-            text:"Solution is present here"
-        },
-        {
-            key:3,
-            header :"Expert 3",
-            text :"Solution is present here "
-        }
-    ]
+    // const dummy_solutions = [
+    //     {
+    //         key : 1,
+    //         header : "Expert 1",
+    //         text :"Solution is present here "
+    //     },
+    //     {
+    //         key : 2,
+    //         header : "Expert 2",
+    //         text:"Solution is present here"
+    //     },
+    //     {
+    //         key:3,
+    //         header :"Expert 3",
+    //         text :"Solution is present here "
+    //     }
+    // ]
+    
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [input, setInput] = useState();
-    const [solutions,setSolutions] = useState(dummy_solutions);
+    const [solutions,setSolutions] = useState([]);
 
+
+    const saveSolutions = async (sol) =>{
+        console.log(sol)
+        await axios.post('/addComment',sol)
+              .then((resp)=>{
+                console.log(resp);
+              })
+      }
+    
+    useEffect(()=>{
+        console.log(answers)
+        setSolutions(answers)
+    },[]);
+    
     const handleOk = () => {
 
       const new_solution = {
-        key:solutions.length+1,
-        header:"Expert new",
+        postId:postId,
+        user:"Expert new",
         text:input,
       }
-      setSolutions(prevState => [...prevState, new_solution])
-      console.log(solutions)
+
+      saveSolutions(new_solution)
+      console.log(solutions);
+
+
       setConfirmLoading(true);
       setTimeout(() => {
         setOpen(false);
@@ -100,13 +118,13 @@ const Post = ({profilepic,imgName,username,timestamp,message}) => {
         </div>
 
         <div className='post__bottom'>
-            <p>{message}</p>
+            <p style={{marginLeft:"15px"}}>{message}</p>
             
         </div>
         {
             imgName?(
-                <div>
-                    <img src={`http://localhost:9000/retrieve/images/single?name=${imgName}`}/>
+                <div style={{display:"flex",flexDirection:'row',justifyContent:"center",marginBottom:"15px"}}>
+                    <img src={`http://localhost:9000/retrieve/images/single?name=${imgName}`} style={{height:"20rem",width:"25rem"}}/>
                 </div>
 
             ):(
@@ -161,7 +179,7 @@ const Post = ({profilepic,imgName,username,timestamp,message}) => {
             {
                 solutions.map(sol => (
 
-                    <Panel header={sol.header} key={sol.key}>
+                    <Panel header={sol.user}>
                          <p>{sol.text}</p>
                     </Panel>
                 
