@@ -24,9 +24,6 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
-
-
-
 //db config
 
 const mongoURI = process.env.MONGODB_URI 
