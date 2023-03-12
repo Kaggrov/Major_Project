@@ -171,15 +171,17 @@ app.get("/productSale",function(req,res){
     res.send("Product Sale page of Website");
 });
 
-app.listen(process.env.PORT || 3000, function() {
-  console.log("Server started on port 3000");
-});
+app.get("/cropdisease",function(req,res){
+    res.send("Upload images of diseased crop");
+})
 
+app.get("/croprecommendation",function(req,res){
+    res.send("Enter parameters and find suitable crop")
+})
 
-
-
-
-
+// app.listen(process.env.PORT || 3000, function() {
+//   console.log("Server started on port 3000");
+// });
 
 
 
