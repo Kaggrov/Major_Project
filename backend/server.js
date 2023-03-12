@@ -143,7 +143,37 @@ app.get('/retrieve/images/single', (req,res) =>{
     })
 })
 
+app.get("/",function(req,res){
+    res.send("Home page of Website");
+});
 
+app.get("/marketplace",function(req,res){
+    res.send("Market place page of website")
+})
+
+app.get("/rent",function(req,res){
+    res.send("Rent page of Website");
+});
+
+app.get("/product",function(req,res){
+    res.send("Product page of Website");
+});
+
+app.get("/admin",function(req,res){
+    res.send("Admin page of Website");
+});
+
+app.get("/sale",function(req,res){
+    res.send("Sale page of Website");
+});
+
+app.get("/productSale",function(req,res){
+    res.send("Product Sale page of Website");
+});
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log("Server started on port 3000");
+});
 
 
 
