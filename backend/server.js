@@ -10,7 +10,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 mongoose.set('strictQuery', true);
 import mongoPosts from './postModel.js'
+import mongoProducts from './productModel.js'
 Grid.mongo = mongoose.mongo
+
 
 //app config
 
@@ -66,13 +68,18 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage});
 
- 
+
 mongoose.connect(mongoURI)
 
 //api routes
 app.get('/',(req,res)=> res.status(200).send("Hello"));
  
 app.post('/upload/image',upload.single('file'),(req,res) => {
+    console.log(req.file)
+    res.status(201).send(req.file)
+})
+
+app.post('/upload/ProductImage',upload.single('file'),(req,res) => {
     console.log(req.file)
     res.status(201).send(req.file)
 })
@@ -83,6 +90,21 @@ app.post('/upload/post',(req,res) =>{
     console.log(dbPost);
 
     mongoPosts.create(dbPost,(err,data) =>{
+        if(err) {
+            res.status(500).send(err)
+        }
+        else{
+            res.status(201).send(data);
+        }
+    })
+})
+
+app.post('/upload/ProductPost',(req,res) =>{
+    const dbPost = req.body;
+
+    console.log(dbPost);
+
+    mongoProducts.create(dbPost,(err,data) =>{
         if(err) {
             res.status(500).send(err)
         }

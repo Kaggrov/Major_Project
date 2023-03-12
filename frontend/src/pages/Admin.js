@@ -1,12 +1,14 @@
 import { Button,Modal ,Form,Input,Upload,message } from 'antd'
 import React , {useState} from 'react'
 import { UploadOutlined } from '@ant-design/icons';
+import axios from '../axios';
 
 import './Admin.css'
 
 const Admin = () => {
 
     const [mode,setMode] = useState("");
+    let image = null;
     const handleSale = () =>{
         setOpen(true);
         setMode("sale");
@@ -20,6 +22,7 @@ const Admin = () => {
         setTimeout(() => {
           onSuccess("ok");
         }, 4000);
+        image = file;
       };
     
       const props = {
@@ -49,7 +52,8 @@ const Admin = () => {
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
-            onOk={() => {
+            onOk={(e) => {
+              e.preventDefault()
               form
                 .validateFields()
                 .then((values) => {
@@ -86,6 +90,10 @@ const Admin = () => {
                     <Input type="textarea" />
                 </Form.Item>
 
+                <Form.Item name="price" label="Price">
+                    <Input />
+                </Form.Item>
+
                 <Form.Item name="photo" label="Photograph of Product">
                     <Upload {...props}
                     customRequest={dummyRequest}>
@@ -100,16 +108,118 @@ const Admin = () => {
       
     const [open, setOpen] = useState(false);
 
-    const onCreate = (values) => {
+    const onCreate = async (values) => {
+      
         console.log('Received values of form: ', values);
         setOpen(false);
+
         if(mode === "sale"){
-            //API Call to store in sale table
+            //API Call to store as sale
+            console.log("Submitting Product for sale");
+
+            console.log(image)
+            if(image) {
+              const imgForm = new FormData();
+              imgForm.append('file',image,image.name)
+              console.log(imgForm)
+      
+              axios.post('/upload/ProductImage',imgForm, {
+                headers:{
+                  'accept': 'application/json',
+                  'Accept-Language':'en-US,en;q=0.8',
+                  'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
+                }
+              }).then((res)=>{
+                  console.log(res.data)
+      
+                  const ProductpostData = {
+
+                    title:values.title,
+                    imgName:res.data.filename,
+                    description:values.description,
+                    price:values.price,
+                    timestamp: Date.now(),
+                    type:"sale"
+                  }
+                  console.log(ProductpostData);
+                  savePost(ProductpostData)
+      
+              })
+            }
+            else
+            {
+              const ProductpostData = {
+
+                text:values.title,
+                description:values.description,
+                price:values.price,
+                timestamp: Date.now(),
+                type:"sale"
+              }
+              console.log(ProductpostData);
+              savePost(ProductpostData)
+      
+            }
+    
         }
         else if(mode === "rent"){
-            // API Call to store in rent table;
+            // API Call to store as rent;
+            console.log("Submitting Product for rent");
+
+            console.log(image)
+            if(image) {
+              const imgForm = new FormData();
+              imgForm.append('file',image,image.name)
+              console.log(imgForm)
+      
+              axios.post('/upload/ProductImage',imgForm, {
+                headers:{
+                  'accept': 'application/json',
+                  'Accept-Language':'en-US,en;q=0.8',
+                  'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
+                }
+              }).then((res)=>{
+                  console.log(res.data)
+      
+                  const ProductpostData = {
+
+                    title:values.title,
+                    imgName:res.data.filename,
+                    description:values.description,
+                    price:values.price,
+                    timestamp: Date.now(),
+                    type:"rent"
+                  }
+                  console.log(ProductpostData);
+                  savePost(ProductpostData)
+      
+              })
+            }
+            else
+            {
+              const ProductpostData = {
+
+                text:values.title,
+                description:values.description,
+                price:values.price,
+                timestamp: Date.now(),
+                type:"rent"
+              }
+              console.log(ProductpostData);
+              savePost(ProductpostData)
+      
+            }
+      
         }
     };
+
+    const savePost = async (postData) =>{
+      console.log(postData)
+      await axios.post('/upload/ProductPost',postData)
+            .then((resp)=>{
+              console.log(resp);
+            })
+    }
 
 
   return (

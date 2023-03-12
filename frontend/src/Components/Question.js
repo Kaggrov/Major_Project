@@ -25,6 +25,7 @@ const Question = ({postId}) => {
       if(image) {
         const imgForm = new FormData();
         imgForm.append('file',image,image.name)
+        console.log(imgForm)
 
         axios.post('/upload/image',imgForm, {
           headers:{
