@@ -39,7 +39,7 @@ const Product = () => {
         <div className='image__container' style={{width:"100%"}}>
             <img
                 alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                src={`http://localhost:9000/retrieve/images/single?name=${location.state.Image}`}
                 style={{width:"560px",height:"500px"}}
             />
         </div>

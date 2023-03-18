@@ -5,6 +5,8 @@ import React from 'react'
 import './Header.css'
 //import {useStateValue} from '../StateProvider'
 import {useNavigate} from "react-router-dom"
+import logo from '../assets/logo.jpg'
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 
 
 const Header = () => {
@@ -15,7 +17,7 @@ const Header = () => {
   return (
     <div className='header'>
         <div className='header__left'>
-            <img src={"img"} alt='Logo'/>
+            <img src={logo} alt='Logo' style={{height:"50px"}}/>
 
 
         </div>
@@ -31,14 +33,15 @@ const Header = () => {
             <div className='header__option header__option--active'>
                 <Home fontSize='large'/>
             </div>
-            <div className='header__option'>
-                <FlagRounded fontSize='large'/>
+            <div className='header__option' onClick={()=>{
+                navigate("/cropTrends")
+            }}>
+                <WhatshotIcon fontSize='large'/>
             </div>
             <div className='header__option'>
                 <SubscriptionsRounded fontSize='large'/>
             </div>
             <div className='header__option' onClick={()=>{
-                console.log("MarketPlace")
                 navigate('/marketplace')
             }}>
 

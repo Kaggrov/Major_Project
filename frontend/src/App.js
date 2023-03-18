@@ -15,7 +15,7 @@ import Product from "./pages/Product";
 import Admin from "./pages/Admin"
 import ExploreSale from "./pages/ExploreSale";
 import ProductSale from "./pages/ProductSale"
-
+import CropTrends from "./pages/CropTrends";
 function App() {
   // const [{ user }, dispatch] = useStateValue()
   
@@ -50,6 +50,7 @@ function App() {
         <Route path="/admin" element={<Admin/>}/>
         <Route path="/sale" element={<ExploreSale/>}/>
         <Route path="/productSale" element={<ProductSale/>}/>
+        <Route path="/cropTrends" element={<CropTrends/>}/>
       </Routes>
     </BrowserRouter>
   )

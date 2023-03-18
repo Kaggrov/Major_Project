@@ -3,6 +3,7 @@ import React from "react";
 import SidebarRow from './SidebarRow'
 import './Sidebar.css'
 //import {useStateValue} from '../StateProvider'
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 
 const Sidebar = () => {
 
@@ -18,11 +19,11 @@ const Sidebar = () => {
 
         <SidebarRow Icon={People} title='Crop Recommendation'/>
 
+        <SidebarRow Icon={WhatshotIcon} title='Crop Trends'/>
+
         <SidebarRow Icon={Chat} title='Expert Chat'/>
 
         <SidebarRow Icon={Storefront} title='MarketPlace'/>
-
-        <SidebarRow Icon={EmojiFlags} title='Pages'/>
 
         <SidebarRow Icon={VideoLibrary} title='Reference Videos'/>
 

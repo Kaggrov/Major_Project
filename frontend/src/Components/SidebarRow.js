@@ -11,8 +11,11 @@ const SidebarRow = ({src,Icon,title}) => {
       if(title==="Expert Chat"){
         window.location = 'https://bot.dialogflow.com/a097707b-93c4-4f54-adce-2642977daf56';
       }
-      if(title == "MarketPlace"){
+      if(title === "MarketPlace"){
          navigate("/marketplace")
+      }
+      if(title === 'Crop Trends'){
+         navigate("/cropTrends")
       }
     }}>
         {src && <Avatar src={src}/>}

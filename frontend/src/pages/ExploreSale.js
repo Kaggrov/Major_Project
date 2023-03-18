@@ -1,8 +1,9 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Col, Row } from 'antd';
 import {ShoppingCartOutlined} from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import {useNavigate} from 'react-router-dom';
+import axios from '../axios'
 const { Meta } = Card;
 
 const ExploreSale = () => {
@@ -73,43 +74,67 @@ const ExploreSale = () => {
     
         },
     ]
+    const [productList,setProductList] = useState([]);
+    const getData = () =>{
+
+        axios.get('/retrieve/products')
+        .then((res)=> {
+          console.log(res.data);
+          setProductList(res.data);
+        })
+
+    }
+
+    useEffect(()=>{
+        getData();
+    },[])
 
   return (
     <div style={{backgroundColor:"#BEF0CB"}}>
         <Row gutter={[16, 16]} style={{margin:"15px",padding:"15px"}}>
 
             {
-                Dummy_Details.map((val)=>(
-                    <Col span={8}>
-                        <Card
-                            style={{
-                            width: 300,
-                            }}
-                            cover={
-                            <img
-                                alt="example"
-                                src={val.image}
-                            />
-                            }
-                            actions={[
-                                <ShoppingCartOutlined key="shop" style={{fontSize:"25px"}}/>
-                            ]}
-                            hoverable={true}
-                            onClick={()=>{
-                                navigate('/productSale',{state:{Image:`${val.image}`,name:`${val.title}`,price:`${val.price}`}});
+                productList.map((val)=> {
 
-                            }}
-                        >
-                            <h3>Price :- {val.price} Only</h3>
-                            <Meta
-                            avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
-                            title={val.title}
-                            description={val.description}
+                    if(val.type==="sale"){
+                        return (
 
-                            />
-                        </Card>
-                    </Col>
-                ))
+                            <Col span={8}>
+                                <Card
+                                    style={{
+                                    width: 300,
+                                    }}
+                                    cover={
+                                    <img
+                                        alt="example"
+                                        src={`http://localhost:9000/retrieve/images/single?name=${val.imgName}`}
+                                        style={{height:"200px",width:"300px"}}
+                                    />
+                                    }
+                                    actions={[
+                                        <ShoppingCartOutlined key="shop" style={{fontSize:"25px"}}/>
+                                    ]}
+                                    hoverable={true}
+                                    onClick={()=>{
+                                        navigate('/productSale',{state:{Image:`${val.imgName}`,name:`${val.title}`,price:`${val.price}`}});
+
+                                    }}
+                                >
+                                    <h3>Price :- {val.price} Only</h3>
+                                    <Meta
+                                    avatar={<Avatar src="https://joesch.moe/api/v1/random" />}
+                                    title={val.title}
+                                    description={val.description}
+
+                                    />
+                                </Card>
+                            </Col>
+                        )
+                    }
+                    else {
+                        return ""
+                    }
+                })
             }
             
         </Row>
