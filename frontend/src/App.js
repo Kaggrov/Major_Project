@@ -16,6 +16,7 @@ import Admin from "./pages/Admin"
 import ExploreSale from "./pages/ExploreSale";
 import ProductSale from "./pages/ProductSale"
 import CropTrends from "./pages/CropTrends";
+import PricePredict from "./pages/PricePredict";
 function App() {
   // const [{ user }, dispatch] = useStateValue()
   
@@ -51,6 +52,7 @@ function App() {
         <Route path="/sale" element={<ExploreSale/>}/>
         <Route path="/productSale" element={<ProductSale/>}/>
         <Route path="/cropTrends" element={<CropTrends/>}/>
+        <Route path="/pricePredict" element={<PricePredict/>}/>
       </Routes>
     </BrowserRouter>
   )

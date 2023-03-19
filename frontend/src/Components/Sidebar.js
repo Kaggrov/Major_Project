@@ -4,6 +4,7 @@ import SidebarRow from './SidebarRow'
 import './Sidebar.css'
 //import {useStateValue} from '../StateProvider'
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 const Sidebar = () => {
 
@@ -24,6 +25,8 @@ const Sidebar = () => {
         <SidebarRow Icon={Chat} title='Expert Chat'/>
 
         <SidebarRow Icon={Storefront} title='MarketPlace'/>
+
+        <SidebarRow Icon={MonetizationOnIcon} title='Resale Check'/>
 
         <SidebarRow Icon={VideoLibrary} title='Reference Videos'/>
 

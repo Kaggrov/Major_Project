@@ -182,14 +182,5 @@ app.get('/retrieve/images/single', (req,res) =>{
 })
 
 
-
-
-
-
-
-
-
-
-
 //listen
 app.listen(port,()=>console.log('listening'))
