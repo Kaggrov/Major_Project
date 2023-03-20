@@ -32,3 +32,20 @@
 .graph {
     margin-left: 15px;
 }
+
+
+#blink {
+    animation: blinker .75s linear infinite;
+    color: red;
+    font-family: sans-serif;
+    margin-left: 42rem;
+    margin-bottom: -1.5rem;
+    z-index: 100;
+    font-weight: 700;
+    font-size: large;
+}
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}

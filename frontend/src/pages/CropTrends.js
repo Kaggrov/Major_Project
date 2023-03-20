@@ -85,6 +85,15 @@ const CropTrends = () => {
         }
       },[supply])
 
+    //   var blink = document.getElementById("blink");
+    //   setInterval(function () {
+    //     if (blink.style.opacity === 0) {
+    //       blink.style.opacity = 1;
+    //     } else {
+    //       blink.style.opacity = 0;
+    //     }
+    //   }, 1000);
+
     const color_map = ['magenta','gold','geekblue']
 
   return (
@@ -94,8 +103,10 @@ const CropTrends = () => {
             <h2 style={{marginLeft:"15px",color:"whitesmoke"}}>This will help you to grow crop according to Demand and Supply</h2>
 
         </div>
+        <span id="blink">Live</span>
 
         <div className='middle_container'>
+
             <div className='graph'>
                 <Plot
                     data={data}
