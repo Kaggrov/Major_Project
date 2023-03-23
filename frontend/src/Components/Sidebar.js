@@ -5,6 +5,7 @@ import './Sidebar.css'
 //import {useStateValue} from '../StateProvider'
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 const Sidebar = () => {
 
@@ -16,7 +17,7 @@ const Sidebar = () => {
         
         <SidebarRow src={"user.photoURL"} title={"user.displayName"}/>
 
-        <SidebarRow Icon = {LocalHospital } title='Crop Disease Detection' />
+        <SidebarRow Icon = {ImageSearchIcon } title='Crop Disease Detection' />
 
         <SidebarRow Icon={People} title='Crop Recommendation'/>
 

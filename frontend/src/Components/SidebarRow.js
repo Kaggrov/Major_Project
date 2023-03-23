@@ -20,6 +20,9 @@ const SidebarRow = ({src,Icon,title}) => {
       if(title === 'Resale Check'){
         navigate("/pricePredict")
      }
+     if(title === "Crop Disease Detection") {
+      navigate("/detect")
+     }
     }}>
         {src && <Avatar src={src}/>}
         {Icon && <Icon/>}
