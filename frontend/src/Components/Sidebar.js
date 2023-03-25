@@ -2,20 +2,20 @@ import { Chat, EmojiFlags, ExpandMore, LocalHospital, People, Storefront, VideoL
 import React from "react";
 import SidebarRow from './SidebarRow'
 import './Sidebar.css'
-//import {useStateValue} from '../StateProvider'
+import {useStateValue} from '../StateProvider'
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 
 const Sidebar = () => {
 
-  //const [{user},dispatch] = useStateValue();
+  const [{user},dispatch] = useStateValue();
 
   return (
     
     <div className="sidebar">
         
-        <SidebarRow src={"user.photoURL"} title={"user.displayName"}/>
+        <SidebarRow src={"user.photoURL"} title={user}/>
 
         <SidebarRow Icon = {ImageSearchIcon } title='Crop Disease Detection' />
 

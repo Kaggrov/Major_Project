@@ -1,18 +1,23 @@
-import { Avatar, Button, IconButton } from '@mui/material'
-import { AddCircle, ExpandMoreRounded, FlagRounded, Forum, Home, NotificationsActive, Search, StorefrontOutlined, SubscriptionsRounded, SupervisedUserCircleRounded } from '@mui/icons-material'
-import React from 'react'
-//import img from '../assets/logo.jpg'
+import { Avatar, IconButton } from '@mui/material'
+import { AddCircle, ExpandMoreRounded, Forum, Home, NotificationsActive, Search, StorefrontOutlined, SubscriptionsRounded, SupervisedUserCircleRounded } from '@mui/icons-material'
+import React,{useState} from 'react'
 import './Header.css'
-//import {useStateValue} from '../StateProvider'
+import {useStateValue} from '../StateProvider'
 import {useNavigate} from "react-router-dom"
 import logo from '../assets/logo.jpg'
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { Menu } from 'antd';
+import {DownOutlined } from '@ant-design/icons';
 
 
 const Header = () => {
 
-    //const [{user},dispatch] = useStateValue();
+    const [{user},dispatch] = useStateValue();
     const navigate = useNavigate();
+    const onClick = (e) => {
+        localStorage.removeItem("user")
+
+    };
 
   return (
     <div className='header'>
@@ -57,7 +62,7 @@ const Header = () => {
         <div className='header__right'>
             <div className='header__info'>
                 <Avatar src={"user.photoURL"}/>
-                <h4>{"user.displayName"}</h4>
+                <h4>{user}</h4>
             </div>
 
             <IconButton>
@@ -72,9 +77,17 @@ const Header = () => {
                 <NotificationsActive/>
             </IconButton>
 
-            <IconButton>
-                <ExpandMoreRounded/>    
-            </IconButton>
+             <Menu onClick={onClick} mode="horizontal" items={[
+                  {
+                    label: ' ',
+                    key: 'signOut',
+                    icon: <DownOutlined />,
+                    children:[{
+                        'label':"Sign Out",
+                        "key":"signOut"
+                    }]
+                  },
+             ]} />
 
         </div>
 

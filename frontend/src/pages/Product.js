@@ -8,7 +8,7 @@ import "./Product.css"
 const Product = () => {
     const location = useLocation();
     const gutters = [];
-    ["3+", "6+", "9+", "12+", "24+"].forEach((value, i) => {
+    ["3", "6", "9", "12", "24"].forEach((value, i) => {
         gutters[i] = value;
       });
     
@@ -63,7 +63,7 @@ const Product = () => {
             <div style={{display:"flex",flexDirection:"row",gap:"60px",justifyContent:"space-evenly"}}>
                 <div>
                     <h3>Monthly Rent</h3>
-                    <h4 style={{textAlign:"center"}}>{(location.state.rent)*gutterKey}</h4>
+                    <h4 style={{textAlign:"center"}}>{(location.state.rent)*(parseInt(gutters[gutterKey]))}</h4>
                 </div>
                 <div >
                     <h3>Refundable Security</h3>

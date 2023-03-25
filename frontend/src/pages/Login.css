@@ -1,0 +1,47 @@
+.login {
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: space-around;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+
+.img1 {
+    height:100px;
+    width: 100px;
+    object-fit: contain;
+    margin-left: -10rem;
+    margin-top: 8px;
+}
+.img2 {
+    height: 110px;
+    object-fit: cover;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 15rem;
+    margin-left: 2.5rem;
+    margin-bottom: 8rem;
+}
+
+.login>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.login>button {
+    width: 300px;
+    background-color: #fdb571;
+    color: #eff2f5;
+    font-weight: 800;
+}
+
+.login>button:hover {
+    background-color: white;
+    color: #2e81f4;
+}
+
+.middle{
+    margin-left: 6rem;
+}

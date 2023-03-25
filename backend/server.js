@@ -11,6 +11,7 @@ dotenv.config()
 mongoose.set('strictQuery', true);
 import mongoPosts from './postModel.js'
 import mongoProducts from './productModel.js'
+import mongoUsers from './userModal.js'
 Grid.mongo = mongoose.mongo
 
 
@@ -181,6 +182,57 @@ app.get('/retrieve/images/single', (req,res) =>{
     })
 })
 
+app.post('/user',(req,res)=> {
+    mongoUsers.findOne({userName:req.body.userName},(err,user)=>{
+        const user_data = {
+            userName:req.body.username,
+            password:req.body.password,
+            name:req.body.name,
+            expiry:"",
+        }
+
+        if(err){
+            res.status(500).send(err)
+        }
+        else if(!user) {
+            console.log(user_data)
+
+            mongoUsers.create(user_data,(err,data)=>{
+                if(err){
+                    res.status(500).send(err);
+                }
+                else{
+                    res.status(201).send(data);
+                }
+            })
+        }
+        else{
+
+            if(req.body.expiry!== undefined && req.body.expiry.length !=0 ){
+                mongoUsers.updateOne(
+                    { userName: user_data.userName }, 
+                    { $set: { expiry: req.body.expiry }},
+                    (err,data) =>{
+                        if(err) {
+                            res.status(500).send(err)
+                        }
+                        else {
+                            res.status(201).send(data)
+                        }
+                    }
+                );
+
+            }
+            else{
+                res.status(200).send(user)
+
+            }
+
+        }
+    })
+
+
+})
 
 //listen
 app.listen(port,()=>console.log('listening'))

@@ -9,7 +9,7 @@ const ProductSale = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const gutters = [];
-    ["3+", "6+", "9+", "12+", "24+"].forEach((value, i) => {
+    ["3", "6", "9", "12", "24"].forEach((value, i) => {
         gutters[i] = value;
       });
     

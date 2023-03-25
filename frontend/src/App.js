@@ -1,10 +1,4 @@
-// import React from 'react';
-// import './App.css';
-// import Feed from './Components/Feed';
-// import Header from './Components/Header';
 // import Login from './Components/Login';
-//  import Sidebar from './Components/Sidebar';
-// import Widgets from './Components/Widgets';
 // import  {useStateValue}  from './StateProvider';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
