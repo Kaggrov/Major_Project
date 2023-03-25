@@ -1,11 +1,12 @@
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import {useLocation} from 'react-router-dom';
 import {Button, Slider,Modal ,QRCode } from 'antd';
 import "./Product.css"
-
+import axios from "../axios"
 
 
 const Product = () => {
+
     const location = useLocation();
     const gutters = [];
     ["3", "6", "9", "12", "24"].forEach((value, i) => {
@@ -14,6 +15,8 @@ const Product = () => {
     
     const [gutterKey, setGutterKey] = useState(1);
     const [booking,Setbooking]  = useState(null)
+    const [expiry,setExpiry] = useState()
+    const [currentProduct,setCurrentProduct] = useState();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,14 +27,82 @@ const Product = () => {
         setIsModalOpen(false);
     };
 
-    const handlePurchase = () => {
-        setIsModalOpen(true);
+    const handlePurchase = async () => {
 
-        setTimeout(()=>{
-            Setbooking((location.state.rent)*gutterKey);
-            setIsModalOpen(false)
-        },5000)
+        const {data:{key}} = await axios.get("/getKey")
+        let order_id;
+
+        const amount  = (location.state.rent)*(parseInt(gutters[gutterKey]));
+        const order = {
+            amount : amount
+        }
+        await axios.post('/checkout',order)
+        .then(res => {
+            console.log(res.data)
+            order_id = res.data.id
+        })
+
+        var options = {
+            key: key, 
+            amount: amount,
+            currency: "INR",
+            name: "Farmers MarketPlace",
+            description: "Sale/Rent Payment",
+            // image: "https://example.com/your_logo",
+            order_id: order_id,
+            // callback_url: "http://localhost:9000/paymentVerification",
+            "handler": async function  (response){
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
+                Setbooking((location.state.rent)*gutterKey);
+                setIsModalOpen(true);
+                const dbQuery = {
+                    userName:localStorage.getItem("userName"),
+                    expiry: gutters[gutterKey],
+                    product:location.state.name
+                }
+                await axios.post("/user",dbQuery)
+                .then(res=>{
+                    console.log(res.data)
+                    setExpiry(gutters[gutterKey])
+                    setCurrentProduct(location.state.name)
+                })
+
+
+            },
+            prefill: {
+                "name": "Farmer",
+                "email": "Farmer.purchase@gmail.com",
+                "contact": "9000090000"
+            },
+            theme: {
+                "color": "#00FF80"
+            }
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
+
     }
+
+    const synchronize = async () => {
+        await axios.post("/user",{
+            userName:localStorage.getItem("userName"),
+        })
+        .then(res=>{
+            res.data.products.map((ele)=>{
+                if(ele.product === location.state.name){
+                    setExpiry(ele.expiry)
+                    setCurrentProduct(ele.product)
+                }
+            })
+        })
+
+    }
+    useEffect( () =>{
+        synchronize();
+    },[])
   return (
 
     <div className='product'>
@@ -77,12 +148,12 @@ const Product = () => {
                 Rent Now !
             </Button>
             <Modal title="Complete trasaction" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <h2>Scan the QR code to make Payment</h2>
+                    <h2>Scan the QR code for Receipt</h2>
                     <QRCode value="https://pmkisan.gov.in/" />
 
             </Modal>
             {
-                booking && <div style={{fontSize:"30px",fontWeight:"700",color:"#EB455F"}}>Your rent will overdue in {gutters[gutterKey].replace("+","")} months</div>
+                expiry && currentProduct===location.state.name && <div style={{fontSize:"30px",fontWeight:"700",color:"#EB455F"}}>Your rent will overdue in {expiry} months</div>
             }
         </div>
     </div>

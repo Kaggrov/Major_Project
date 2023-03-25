@@ -25,6 +25,7 @@ const Login = () => {
                 user:result.data.name
             })
             localStorage.setItem("user",result.data.name)
+            localStorage.setItem("userName",result.data.userName)
         }).catch(error => alert(error.message))
 
    }

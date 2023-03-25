@@ -2,6 +2,7 @@ import React ,{useState}from 'react'
 import {useLocation,useNavigate} from 'react-router-dom';
 import {Button, Slider,Modal ,QRCode,Result } from 'antd';
 import "./Product.css"
+import axios from "../axios"
 
 
 
@@ -25,13 +26,55 @@ const ProductSale = () => {
         setIsModalOpen(false);
     };
 
-    const handlePurchase = () => {
-        setIsModalOpen(true);
+    const handlePurchase = async () => {
+        // setIsModalOpen(true);
 
-        setTimeout(()=>{
-            Setbooking(200*gutterKey);
-            setIsModalOpen(false)
-        },5000)
+        // setTimeout(()=>{
+        //     Setbooking(200*gutterKey);
+        //     setIsModalOpen(false)
+        // },5000)
+        const {data:{key}} = await axios.get("/getKey")
+        let order_id;
+        const amount  = parseFloat(location.state.price.replace(/,/g, ''));
+        console.log(amount,location.state.price)
+        const order = {
+            amount : amount
+        }
+        await axios.post('/checkout',order)
+        .then(res => {
+            console.log(res.data)
+            order_id = res.data.id
+        })
+
+        var options = {
+            key: key, 
+            amount: amount,
+            currency: "INR",
+            name: "Farmers MarketPlace",
+            description: "Sale/Rent Payment",
+            // image: "https://example.com/your_logo",
+            order_id: order_id,
+            // callback_url: "http://localhost:9000/paymentVerification",
+            "handler": async function  (response){
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature)
+                setIsModalOpen(true);
+                Setbooking(200*gutterKey);
+
+            },
+            prefill: {
+                "name": "Farmer",
+                "email": "Farmer.purchase@gmail.com",
+                "contact": "9000090000"
+            },
+            theme: {
+                "color": "#00FF80"
+            }
+        };
+
+        const razor = new window.Razorpay(options);
+        razor.open();
     }
   return (
 
@@ -62,7 +105,7 @@ const ProductSale = () => {
                 Buy Now !
             </Button>
             <Modal title="Complete trasaction" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    <h2>Scan the QR code to make Payment</h2>
+                    <h2>Scan the QR code for Receipt</h2>
                     <QRCode value="https://pmkisan.gov.in/" />
 
             </Modal>

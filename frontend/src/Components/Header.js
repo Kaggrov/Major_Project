@@ -16,6 +16,7 @@ const Header = () => {
     const navigate = useNavigate();
     const onClick = (e) => {
         localStorage.removeItem("user")
+        localStorage.removeItem("userName")
 
     };
 

@@ -12,6 +12,7 @@ mongoose.set('strictQuery', true);
 import mongoPosts from './postModel.js'
 import mongoProducts from './productModel.js'
 import mongoUsers from './userModal.js'
+import Razorpay from "razorpay"
 Grid.mongo = mongoose.mongo
 
 
@@ -28,7 +29,11 @@ app.use(cors())
 
 
 
-
+//payment Config
+const instance = new Razorpay({
+    key_id: process.env.RAZOR_PAY_KEY,
+    key_secret:process.env.RAZOR_PAY_SECRET,
+  });
 
 //db config
 
@@ -184,11 +189,11 @@ app.get('/retrieve/images/single', (req,res) =>{
 
 app.post('/user',(req,res)=> {
     mongoUsers.findOne({userName:req.body.userName},(err,user)=>{
+        console.log(req.body)
         const user_data = {
             userName:req.body.username,
             password:req.body.password,
             name:req.body.name,
-            expiry:"",
         }
 
         if(err){
@@ -210,8 +215,8 @@ app.post('/user',(req,res)=> {
 
             if(req.body.expiry!== undefined && req.body.expiry.length !=0 ){
                 mongoUsers.updateOne(
-                    { userName: user_data.userName }, 
-                    { $set: { expiry: req.body.expiry }},
+                    { userName: req.body.userName }, 
+                    { $push:{products: { expiry: req.body.expiry , product:req.body.product}}},
                     (err,data) =>{
                         if(err) {
                             res.status(500).send(err)
@@ -233,6 +238,26 @@ app.post('/user',(req,res)=> {
 
 
 })
+
+app.get("/getKey",(req,res)=>{
+    res.status(200).send({key:process.env.RAZOR_PAY_KEY})
+})
+
+app.post('/checkout',(req,res)=>{
+
+    var options = {
+        amount:Number( req.body.amount *100),  // amount in the smallest currency unit
+        currency: "INR",
+        receipt: "order_rcptid_11"
+      };
+      console.log(options)
+      instance.orders.create(options, function(err, order) {
+        res.status(200).send(order)
+
+      });
+})
+
+
 
 //listen
 app.listen(port,()=>console.log('listening'))
