@@ -108,6 +108,10 @@ detect_model = CNN(39)
 detect_model.load_state_dict(torch.load("../Detection/model/crop_detect_model.pt"))
 detect_model.eval()
 
+# Recommendation Model
+
+recommend_modal = pickle.load(open("../Recommendation/model/cropRecommender.pkl",'rb'))
+
 # Disease and Supplements Mapping
 disease_info = pd.read_csv("../Detection/model/disease_info.csv" , encoding='cp1252')
 supplement_info = pd.read_csv("../Detection/model/supplement_info.csv",encoding='cp1252')
@@ -121,6 +125,16 @@ class Product(BaseModel):
     Working_Condition: int
     release_year: int
     days_use:int
+
+# Defining th recommendation Modal input 
+class Crop(BaseModel):
+    nitrogen: int
+    phosphorus: int
+    potassium: int
+    temp: float
+    humidity: float
+    pH:float
+    rainfall:float
 
 # Detection function
 def prediction(image_path):
@@ -225,6 +239,28 @@ async def detection(file: UploadFile):
         "supplement_image":supplement_image_url,
         "supplement_buy":supplement_buy_link
     }
+
+# Recommendation Route
+@app.post("/recommend")
+async def get_predict(data: Crop):
+    print(data)
+    sample = [[
+        data.nitrogen,
+        data.phosphorus,
+        data.potassium,
+        data.temp,
+        data.humidity,
+        data.pH,
+        data.rainfall
+    ]]
+
+
+    crop_name = recommend_modal.predict(sample).tolist()[0]
+
+    return {
+        "data":crop_name
+    }
+
 
 
 # Configuring the server host and port

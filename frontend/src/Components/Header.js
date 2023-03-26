@@ -17,7 +17,7 @@ const Header = () => {
     const onClick = (e) => {
         localStorage.removeItem("user")
         localStorage.removeItem("userName")
-
+        window.location.reload();
     };
 
   return (
