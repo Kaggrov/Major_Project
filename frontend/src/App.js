@@ -13,29 +13,8 @@ import CropTrends from "./pages/CropTrends";
 import PricePredict from "./pages/PricePredict";
 import CropDetect from "./pages/CropDetect";
 import CropRecommend from "./pages/CropRecommend";
+import Faq from "./Components/Faq";
 function App() {
-  // const [{ user }, dispatch] = useStateValue()
-  
-  // return (
-  //   <div className="App">
-  //     {
-  //       user ? (
-  //         <>
-  //           <Header />
-
-  //           <div className="App__body">
-  //             <Sidebar />
-  //             <Feed />
-  //             <Widgets />
-  //           </div>
-  //         </>
-  //       ) : (
-  //           <Login />
-  //         )
-  //     }
-
-  //   </div>
-  // );
 
   return (
     <BrowserRouter>
@@ -51,6 +30,7 @@ function App() {
         <Route path="/pricePredict" element={<PricePredict/>}/>
         <Route path="/detect" element={<CropDetect/>}/>
         <Route path="/recommend" element={<CropRecommend/>}/>
+        <Route path="/expert" element={<Faq/>}/>
       </Routes>
     </BrowserRouter>
   )

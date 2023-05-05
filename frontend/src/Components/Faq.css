@@ -1,0 +1,14 @@
+.faq{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.faq_box {
+    background-color: rgb(127, 161, 255);
+    padding: 1rem;
+    border-radius: 15px;
+
+}

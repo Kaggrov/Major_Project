@@ -2,15 +2,15 @@ import { Avatar } from '@mui/material'
 import { InsertEmoticon, PhotoLibrary, Videocam } from'@mui/icons-material'
 import React, { useState } from 'react'
 import './Question.css'
-// import {useStateValue} from '../StateProvider'
+import {useStateValue} from '../StateProvider'
 import axios from '../axios';
 
 
 const Question = ({postId}) => {
 
+  const [{user},dispatch] = useStateValue();
   const [input,setInput] = useState('');
   const [image,setImage] = useState(null);
-  //const [{user},dispatch] = useStateValue()
 
   const handleChange = (e) => {
       if(e.target.files[0]) {
@@ -40,7 +40,7 @@ const Question = ({postId}) => {
               postId:postId,
               text:input,
               imgName:res.data.filename,
-              user:"user.displayName",
+              user:user,
               avatar:"user.photoURL",
               timestamp: Date.now(),
               answers:[]
@@ -55,7 +55,7 @@ const Question = ({postId}) => {
           const postData = {
             postId:postId,
             text:input,
-            user:"user.displayName",
+            user:user,
             avatar:"user.photoURL",
             timestamp: Date.now(),
             answers:[]

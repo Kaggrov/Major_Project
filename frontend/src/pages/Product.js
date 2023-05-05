@@ -3,6 +3,7 @@ import {useLocation} from 'react-router-dom';
 import {Button, Slider,Modal ,QRCode } from 'antd';
 import "./Product.css"
 import axios from "../axios"
+import Confetti from 'react-confetti'
 
 
 const Product = () => {
@@ -19,9 +20,13 @@ const Product = () => {
     const [currentProduct,setCurrentProduct] = useState();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showConfetti,setShowConfetti] = useState(false)
 
     const handleOk = () => {
         setIsModalOpen(false);
+        setTimeout(()=>{
+            setShowConfetti(false)
+        },5000)
     };
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -57,6 +62,7 @@ const Product = () => {
                 // alert(response.razorpay_signature)
                 Setbooking((location.state.rent)*gutterKey);
                 setIsModalOpen(true);
+                setShowConfetti(true);
                 const dbQuery = {
                     userName:localStorage.getItem("userName"),
                     expiry: gutters[gutterKey],
@@ -106,6 +112,7 @@ const Product = () => {
   return (
 
     <div className='product'>
+         {showConfetti && <Confetti height={window.innerHeight} width={window.width} numberOfPieces={3000} />}
 
         <div className='image__container' style={{width:"100%"}}>
             <img

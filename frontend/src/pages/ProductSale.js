@@ -3,6 +3,7 @@ import {useLocation,useNavigate} from 'react-router-dom';
 import {Button, Slider,Modal ,QRCode,Result } from 'antd';
 import "./Product.css"
 import axios from "../axios"
+import Confetti from 'react-confetti'
 
 
 
@@ -18,9 +19,13 @@ const ProductSale = () => {
     const [booking,Setbooking]  = useState(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showConfetti,setShowConfetti] = useState(false)
 
     const handleOk = () => {
         setIsModalOpen(false);
+        setTimeout(()=>{
+            setShowConfetti(false)
+        },5000)
     };
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -60,6 +65,7 @@ const ProductSale = () => {
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature)
                 setIsModalOpen(true);
+                setShowConfetti(true);
                 Setbooking(200*gutterKey);
 
             },
@@ -79,6 +85,7 @@ const ProductSale = () => {
   return (
 
     <div className='product'>
+        {showConfetti && <Confetti height={window.innerHeight} width={window.width} numberOfPieces={3000} />}
 
         <div className='image__container' style={{width:"100%"}}>
             <img
@@ -105,6 +112,7 @@ const ProductSale = () => {
                 Buy Now !
             </Button>
             <Modal title="Complete trasaction" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    
                     <h2>Scan the QR code for Receipt</h2>
                     <QRCode value="https://pmkisan.gov.in/" />
 
@@ -118,7 +126,7 @@ const ProductSale = () => {
                   <Button type="primary" key="console" onClick={()=>{
                     navigate("/"); 
                   }}>
-                    Go Console
+                    Go to Home
                   </Button>,
                   <Button key="buy" onClick={()=>{navigate("/ExploreSale")}}>Buy Again</Button>,
                 ]}

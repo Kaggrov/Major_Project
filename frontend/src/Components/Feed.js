@@ -9,6 +9,7 @@ import axios from '../axios'
 // const pusher = new Pusher('........', {
 //   cluster: 'ap2'
 // });
+import {useStateValue} from '../StateProvider'
 
 
 const Feed = () => {
@@ -54,7 +55,6 @@ const Feed = () => {
     syncData()
   },[])
 
-  console.log(postsData)
 
   return (
     <div className='feed'>

@@ -9,7 +9,7 @@ const SidebarRow = ({src,Icon,title}) => {
   return (
     <div className="sidebarRow"onClick={()=>{
       if(title==="Expert Chat"){
-        window.location = 'https://bot.dialogflow.com/a097707b-93c4-4f54-adce-2642977daf56';
+        navigate("/expert")
       }
       if(title === "MarketPlace"){
          navigate("/marketplace")
