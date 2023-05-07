@@ -55,7 +55,7 @@ model1.fit(X_train,y1_train)
 y1_pred = model1.predict(X_test)
 
 mean_absolute_percentage_error(y1_test, y1_pred) 
-#MAPE = 0.076
+#MAPE = 0.040
 
 #Testing
 
