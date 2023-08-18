@@ -101,7 +101,7 @@ class CNN(nn.Module):
 
 
 # Loading up the trained model
-model = pickle.load(open('../Predicitve/model/pricePredict.pkl', 'rb'))
+model = pickle.load(open('../Predicitve/model/pricePredictLatest.pkl', 'rb'))
 
 # Detection Model
 detect_model = CNN(39) 
@@ -110,7 +110,7 @@ detect_model.eval()
 
 # Recommendation Model
 
-recommend_modal = pickle.load(open("../Recommendation/model/cropRecommender.pkl",'rb'))
+recommend_modal = pickle.load(open("../Recommendation/model/cropRecommenderLatest.pkl",'rb'))
 
 # Disease and Supplements Mapping
 disease_info = pd.read_csv("../Detection/model/disease_info.csv" , encoding='cp1252')

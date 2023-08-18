@@ -67,4 +67,4 @@ model1.predict(sample1)
 
 import pickle
 
-pickle.dump(model, open('pricePredict.pkl', 'wb'))
+pickle.dump(model, open('pricePredictLatest.pkl', 'wb'))
